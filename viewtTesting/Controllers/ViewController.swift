@@ -92,7 +92,7 @@ class ViewController: UIViewController {
         self.locationManager.requestAlwaysAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             //self.locationManager.startUpdatingLocation()
             isTracking = true
         }
@@ -160,7 +160,7 @@ extension ViewController {
 }
 
 extension ViewController {
-    // specific location
+     //specific location
     func setSpecificLocation(name: String, country: String) {
         self.currentLocationName = name
         self.currentContry = country

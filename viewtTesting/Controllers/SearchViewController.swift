@@ -19,21 +19,39 @@ class SearchViewController: UIViewController {
     var rootViewController: ViewController?
     var resultArray = [CityLocation]()
     var citiesArray = [CityLocation]()
-    
+    var loaded = false {
+        didSet {
+            if loaded {
+                hideLoading()
+                searchBar.isUserInteractionEnabled = true
+            } else {
+                showLoading()
+                searchBar.isUserInteractionEnabled = false
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         searchBar.delegate = self
         resultTableView.delegate = self
         resultTableView.dataSource = self
+        
         loadingSpinner.startAnimating()
+        
         upsideView.isUserInteractionEnabled = true
         upsideView.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(clickOutSide)))
+        
         prepareSearchBar(of: searchBar)
+        
+        loaded = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        getCities()
+        getCities { [weak self] in
+            self?.loaded = true
+        }
     }
     @IBAction func touchBack(_ sender: UIButton) {
         self.searchBar.endEditing(true)
@@ -57,16 +75,15 @@ class SearchViewController: UIViewController {
         loadingSpinner.isHidden = true
         searchBar.isUserInteractionEnabled = true
     }
-    private func getCities() {
+    private func getCities(completion: @escaping () -> ()) {
         if let loadedCities = UserDefaults.standard.array(forKey: "Cities") as? [NSDictionary] {
             for dict in loadedCities {
                 if let city = CityLocation(withData: dict) {
                     self.citiesArray.append(city)
                 }
             }
+            self.loaded = true
         } else {
-            searchBar.isUserInteractionEnabled = false
-            showLoading()
             let url = URL(string: Constants.CityLocateApi.baseUrl)
             Alamofire.request(url!).responseJSON { [weak self](response) in
                 if let json = response.result.value as? [NSDictionary] {
@@ -78,9 +95,8 @@ class SearchViewController: UIViewController {
                     UserDefaults.standard.set(json, forKey: "Cities")
                     print(UserDefaults.standard.array(forKey: "Cities") ?? "nothin")
                 }
+                completion()
             }
-            hideLoading()
-            searchBar.isUserInteractionEnabled = true
         }
     }
 }
