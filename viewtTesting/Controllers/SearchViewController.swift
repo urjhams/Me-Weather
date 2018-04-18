@@ -19,14 +19,12 @@ class SearchViewController: UIViewController {
     var rootViewController: ViewController?
     var resultArray = [CityLocation]()
     var citiesArray = [CityLocation]()
-    var loaded = false {
+    var loaded: Bool? {
         didSet {
-            if loaded {
+            if loaded! {
                 hideLoading()
-                searchBar.isUserInteractionEnabled = true
             } else {
                 showLoading()
-                searchBar.isUserInteractionEnabled = false
             }
         }
     }
@@ -36,8 +34,6 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
         resultTableView.delegate = self
         resultTableView.dataSource = self
-        
-        loadingSpinner.startAnimating()
         
         upsideView.isUserInteractionEnabled = true
         upsideView.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(clickOutSide)))
@@ -66,11 +62,13 @@ class SearchViewController: UIViewController {
         bar.placeholder = "City name"
     }
     private func showLoading() {
+        loadingSpinner.startAnimating()
         loadingLabel.isHidden = false
         loadingSpinner.isHidden = false
         searchBar.isUserInteractionEnabled = false
     }
     private func hideLoading() {
+        loadingSpinner.stopAnimating()
         loadingLabel.isHidden = true
         loadingSpinner.isHidden = true
         searchBar.isUserInteractionEnabled = true
@@ -85,17 +83,25 @@ class SearchViewController: UIViewController {
             self.loaded = true
         } else {
             let url = URL(string: Constants.CityLocateApi.baseUrl)
-            Alamofire.request(url!).responseJSON { [weak self](response) in
-                if let json = response.result.value as? [NSDictionary] {
-                    for dictionary in json {
-                        if let city = CityLocation(withData: dictionary) {
-                            self?.citiesArray.append(city)
+            DispatchQueue.global(qos: .userInitiated).async {
+                let group = DispatchGroup()
+                group.enter()
+                Alamofire.request(url!).responseJSON { [weak self](response) in
+                    if let json = response.result.value as? [NSDictionary] {
+                        for dictionary in json {
+                            if let city = CityLocation(withData: dictionary) {
+                                self?.citiesArray.append(city)
+                            }
                         }
+                        group.leave()
+                        UserDefaults.standard.set(json, forKey: "Cities")
+                        print(UserDefaults.standard.array(forKey: "Cities") ?? "nothin")
                     }
-                    UserDefaults.standard.set(json, forKey: "Cities")
-                    print(UserDefaults.standard.array(forKey: "Cities") ?? "nothin")
                 }
-                completion()
+                group.wait()
+                DispatchQueue.main.sync {
+                    completion()
+                }
             }
         }
     }
