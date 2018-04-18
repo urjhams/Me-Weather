@@ -30,11 +30,7 @@ class SearchViewController: UIViewController {
         upsideView.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(clickOutSide)))
         prepareSearchBar(of: searchBar)
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        getCities()
-//    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getCities()
@@ -42,7 +38,6 @@ class SearchViewController: UIViewController {
     @IBAction func touchBack(_ sender: UIButton) {
         self.searchBar.endEditing(true)
         self.dismiss(animated: true) {
-            
         }
     }
     private func prepareSearchBar(of bar:UISearchBar) {
@@ -50,7 +45,7 @@ class SearchViewController: UIViewController {
         bar.backgroundImage = UIImage()
         bar.tintColor = UIColor.clear
         bar.alpha = 0.7
-        bar.placeholder = "Nhập tên thành phố"
+        bar.placeholder = "City name"
     }
     private func showLoading() {
         loadingLabel.isHidden = false
@@ -63,8 +58,6 @@ class SearchViewController: UIViewController {
         searchBar.isUserInteractionEnabled = true
     }
     private func getCities() {
-        searchBar.isUserInteractionEnabled = false
-        showLoading()
         if let loadedCities = UserDefaults.standard.array(forKey: "Cities") as? [NSDictionary] {
             for dict in loadedCities {
                 if let city = CityLocation(withData: dict) {
@@ -72,6 +65,8 @@ class SearchViewController: UIViewController {
                 }
             }
         } else {
+            searchBar.isUserInteractionEnabled = false
+            showLoading()
             let url = URL(string: Constants.CityLocateApi.baseUrl)
             Alamofire.request(url!).responseJSON { [weak self](response) in
                 if let json = response.result.value as? [NSDictionary] {
@@ -84,9 +79,9 @@ class SearchViewController: UIViewController {
                     print(UserDefaults.standard.array(forKey: "Cities") ?? "nothin")
                 }
             }
+            hideLoading()
+            searchBar.isUserInteractionEnabled = true
         }
-        hideLoading()
-        searchBar.isUserInteractionEnabled = true
     }
 }
 

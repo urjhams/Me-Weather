@@ -30,20 +30,20 @@ class ViewController: UIViewController {
         return .lightContent
     }
     let childIconNameArray = ["humidity","windSpeed","cloud","pressure","visibility"]
-    let childTitleArray = ["Độ ẩm","Tốc độ gió","Mật độ mây","Áp lực gió","Tầm nhìn xa"]
-    let statusDict = ["clear-day":"Trời trong xanh",
-                      "clear-night":"Đêm quang đãng",
-                      "cloudy":"Trời nhiều mây",
-                      "fog":"Có sương mù",
-                      "hail":"Có thể có mưa đá",
-                      "partly-cloudy-day":"Ban ngày ít mây",
-                      "partly-cloudy-night":"Ban đêm ít mây",
-                      "rain":"Đang có mưa",
-                      "sleet":"Đang có giông",
-                      "snow":"Tuyết rơi",
-                      "thunderstorm":"Đang có bão",
-                      "tornado":"Có vòi rồng xuất hiện",
-                      "wind":"Trời nhiều gió"]
+    let childTitleArray = ["Humidity","Wind speed","Cloud","Pressure","Visibility"]
+    let statusDict = ["clear-day":"Clear day",
+                      "clear-night":"Clear night",
+                      "cloudy":"Most cloudy",
+                      "fog":"Fogging",
+                      "hail":"May has hailing",
+                      "partly-cloudy-day":"Partly cloudy day",
+                      "partly-cloudy-night":"Partly cloudy night",
+                      "rain":"Rainning",
+                      "sleet":"Sleeting",
+                      "snow":"Has snowing",
+                      "thunderstorm":"Thunderstorm",
+                      "tornado":"Tornado",
+                      "wind":"Windy"]
     var childValueArray = [String]()
     var hourlyArray = [HourlyModel]()
     let locationManager = CLLocationManager()
@@ -86,12 +86,13 @@ class ViewController: UIViewController {
         }
     }
     var transition: JTMaterialTransition?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.locationManager.requestAlwaysAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers   //kCLLocationAccuracyNearestTenMeters
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             //self.locationManager.startUpdatingLocation()
             isTracking = true
         }
@@ -212,7 +213,7 @@ extension ViewController {
             if let model = CurrentWeatherModel(withData: currentData) {
                 self.childValueArray = [String]()
                 self.childValueArray.append(String(Int(model.humidity * 100)) + " %")
-                self.childValueArray.append(String(model.windSpd) + " dặm/h")
+                self.childValueArray.append(String(model.windSpd) + " mile/h")
                 self.childValueArray.append(String(Int(model.cloud * 100)) + " %")
                 self.childValueArray.append(String(model.pressure))
                 self.childValueArray.append(String(Int(model.visibility)) + " km")
