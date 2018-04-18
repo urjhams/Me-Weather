@@ -75,6 +75,7 @@ class SearchViewController: UIViewController {
     }
     private func getCities(completion: @escaping () -> ()) {
         if let loadedCities = UserDefaults.standard.array(forKey: "Cities") as? [NSDictionary] {
+            self.loadingLabel.text = "Loading data..."
             for dict in loadedCities {
                 if let city = CityLocation(withData: dict) {
                     self.citiesArray.append(city)
