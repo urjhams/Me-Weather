@@ -126,7 +126,7 @@
 				0D4CD7DD2050E30500FB5B1C /* Controllers */,
 				0D4CD7DE2050E31100FB5B1C /* Views */,
 				0D4CD7DF2050E32700FB5B1C /* Models */,
-				0D4CD7DC2050E27300FB5B1C /* Cells */,
+				0D4CD7AC204F968500FB5B1C /* Main.storyboard */,
 				0D4CD7AF204F968500FB5B1C /* Assets.xcassets */,
 				0D4CD7B1204F968500FB5B1C /* LaunchScreen.storyboard */,
 				0D4CD7B4204F968500FB5B1C /* Info.plist */,
@@ -153,16 +153,6 @@
 			path = viewtTestingUITests;
 			sourceTree = "<group>";
 		};
-		0D4CD7DC2050E27300FB5B1C /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				0D4CD7D82050E24500FB5B1C /* InfoTableViewCell.swift */,
-				0D4CD7DA2050E25D00FB5B1C /* HourlyCollectionViewCell.swift */,
-				0D04610C2052815C002F5EF0 /* ResultSearchTableViewCell.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
 		0D4CD7DD2050E30500FB5B1C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,7 +165,9 @@
 		0D4CD7DE2050E31100FB5B1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0D4CD7AC204F968500FB5B1C /* Main.storyboard */,
+				0D4CD7D82050E24500FB5B1C /* InfoTableViewCell.swift */,
+				0D4CD7DA2050E25D00FB5B1C /* HourlyCollectionViewCell.swift */,
+				0D04610C2052815C002F5EF0 /* ResultSearchTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -279,15 +271,18 @@
 				TargetAttributes = {
 					0D4CD7A4204F968500FB5B1C = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					0D4CD7B8204F968600FB5B1C = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 0D4CD7A4204F968500FB5B1C;
 					};
 					0D4CD7C3204F968600FB5B1C = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 0D4CD7A4204F968500FB5B1C;
 					};
@@ -595,7 +590,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = self.viewtTesting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -611,7 +606,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = self.viewtTesting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -627,7 +622,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = self.viewtTestingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/viewtTesting.app/viewtTesting";
 			};
@@ -644,7 +639,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = self.viewtTestingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/viewtTesting.app/viewtTesting";
 			};
@@ -660,7 +655,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = self.viewtTestingUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = viewtTesting;
 			};
@@ -676,7 +671,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = self.viewtTestingUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = viewtTesting;
 			};
