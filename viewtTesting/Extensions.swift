@@ -66,6 +66,8 @@ public enum TempType {
     case F
     case C
 }
-public var currentTempMode: TempType = .F
+
+// at first time, if there isnt the stored value yet, it return false
+public var currentTempMode: TempType = UserDefaults.standard.bool(forKey: "isCelcius") ? .C : .F
 
 
